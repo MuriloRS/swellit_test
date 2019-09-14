@@ -3,7 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:projeto_swellit/widgets/order_card.dart';
 import 'package:projeto_swellit/widgets/type_order.dart';
 
-class OrderScreen extends StatelessWidget {
+class NewOrderScreen extends StatefulWidget {
+  @override
+  _OrderScreenState createState() => _OrderScreenState();
+}
+
+class _OrderScreenState extends State<NewOrderScreen> {
+  String _value = '';
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -168,25 +175,43 @@ class OrderScreen extends StatelessWidget {
                           height: 5,
                         ),
                         OrderCard(false),
-                        
                         Container(
-                            padding: EdgeInsets.all(15),
-                            child: CupertinoButton(
-                              padding: EdgeInsets.only(left:20, top:15, right: 20, bottom:15),
-                              color: Theme.of(context).hintColor,
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Text(
-                                    "Adicionar Pedido",
-                                  ),
-                                  Icon(Icons.chevron_right, size: 35,)
-                                ],
-                              ),
-                              onPressed: (){},
-                            ))
+                          padding: EdgeInsets.all(15),
+                          child: CupertinoButton(
+                            padding: EdgeInsets.only(
+                                left: 20, top: 15, right: 20, bottom: 15),
+                            color: Theme.of(context).hintColor,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Text(
+                                  "Adicionar Pedido",
+                                ),
+                                Icon(
+                                  Icons.chevron_right,
+                                  size: 35,
+                                )
+                              ],
+                            ),
+                            onPressed: () {
+                              _selectDate();
+                            },
+                          ),
+                        ),
                       ],
                     )))));
+  }
+
+  
+
+  Future _selectDate() async {
+   
+    DateTime picked = await showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(2019),
+        lastDate: DateTime(2020));
+
+    if (picked != null) setState(() => _value = picked.toString());
   }
 }

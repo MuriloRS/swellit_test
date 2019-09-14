@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_swellit/widgets/check_icon.dart';
 
 class OrderCard extends StatelessWidget {
   final bool isFinishedOrder;
@@ -50,19 +51,7 @@ class OrderCard extends StatelessWidget {
                 ],
               ),
               isFinishedOrder
-                  ? Container(
-                      height: 32,
-                      width: 32,
-                      decoration: BoxDecoration(
-                        color: backgroundLightBlue,
-                        borderRadius: BorderRadius.circular(15.0),
-                      ),
-                      child: Icon(
-                        Icons.check,
-                        color: Theme.of(context).accentColor,
-                        size: 24,
-                      ),
-                    )
+                  ? CheckIcon(24)
                   : Container()
             ],
           ),
