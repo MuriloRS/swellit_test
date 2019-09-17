@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:projeto_swellit/widgets/order_card.dart';
+import 'package:projeto_swellit/widgets/primary_button.dart';
 import 'package:projeto_swellit/widgets/type_order.dart';
 
 class NewOrderScreen extends StatefulWidget {
@@ -175,36 +176,14 @@ class _OrderScreenState extends State<NewOrderScreen> {
                           height: 5,
                         ),
                         OrderCard(false),
-                        Container(
-                          padding: EdgeInsets.all(15),
-                          child: CupertinoButton(
-                            padding: EdgeInsets.only(
-                                left: 20, top: 15, right: 20, bottom: 15),
-                            color: Theme.of(context).hintColor,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Text(
-                                  "Adicionar Pedido",
-                                ),
-                                Icon(
-                                  Icons.chevron_right,
-                                  size: 35,
-                                )
-                              ],
-                            ),
-                            onPressed: () {
-                              _selectDate();
-                            },
-                          ),
-                        ),
+                        PrimaryButton(_selectDate, 'Adicionar Pedido')
                       ],
                     )))));
   }
 
   
 
-  Future _selectDate() async {
+  void _selectDate() async {
    
     DateTime picked = await showDatePicker(
         context: context,

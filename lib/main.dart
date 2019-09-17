@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:projeto_swellit/screens/new_order_screen.dart';
+
+import 'package:projeto_swellit/screens/order_solicitation.dart';
 
 void main() => runApp(MyApp());
 
@@ -17,10 +18,10 @@ class MyApp extends StatelessWidget {
           primaryColor: Color.fromRGBO(42, 33, 119, 1),
           accentColor: Color.fromRGBO(97, 221, 220, 1),
           hintColor: Color.fromRGBO(96, 63, 229, 1),
-          backgroundColor: Colors.grey[200]),
+          backgroundColor: Colors.grey[300]),
       supportedLocales: [const Locale('pt', 'BR')],
       debugShowCheckedModeBanner: false,
-      home: NewOrderScreen(),
+      home: OrderSolicitation(),
     );
   }
 }
