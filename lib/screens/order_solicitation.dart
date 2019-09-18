@@ -71,7 +71,23 @@ class _OrderSolicitationState extends State<OrderSolicitation> {
                           child: new Stack(
                             alignment: Alignment.center,
                             children: <Widget>[
-                              _getProfileImage(context),
+                              (_image == null)
+                                  ? CircleAvatar(
+                                      maxRadius: 100,
+                                      backgroundColor:
+                                          Color.fromRGBO(235, 235, 235, 1),
+                                      child: FlatButton(
+                                        child: Icon(Icons.photo_camera),
+                                        color: Colors.transparent,
+                                        onPressed: () {
+                                          _newPhoto(context);
+                                        },
+                                      ),
+                                    )
+                                  : CircleAvatar(
+                                      backgroundImage: FileImage(_image),
+                                      maxRadius: 100,
+                                    ),
                               new Align(
                                   alignment: Alignment.topRight,
                                   child: new Container(
@@ -89,7 +105,11 @@ class _OrderSolicitationState extends State<OrderSolicitation> {
                                         color: Colors.white,
                                         size: 15,
                                       ),
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        setState(() {
+                                          _image = null;
+                                        });
+                                      },
                                       color: Theme.of(context).primaryColor,
                                     ),
                                   ))
@@ -216,37 +236,83 @@ class _OrderSolicitationState extends State<OrderSolicitation> {
     ));
   }
 
-  Widget _getProfileImage(context) {
-    if (_image != null) {
-      return Container(
-        alignment: Alignment.center,
-        height: 100,
-        width: 100,
-        child: Image.file(_image),
-      );
-    } else {
-      return CircleAvatar(
-        backgroundColor: Color.fromRGBO(235, 235, 235, 1),
-        child: FlatButton(
-          child: Icon(Icons.photo_camera),
-          color: Colors.transparent,
-          onPressed: () {
-            _newPhoto(context);
-          },
-        ),
-      );
-    }
-  }
-
   void _newPhoto(context) async {
-    File image = await ImagePicker.pickImage(source: ImageSource.camera);
+    File image = await ImagePicker.pickImage(source: ImageSource.gallery);
 
     setState(() {
       _image = image;
     });
   }
 
-  void _finishOrder() {}
+  void _finishOrder() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // retorna um objeto do tipo Dialog
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(20.0))),
+          contentPadding: EdgeInsets.all(15),
+          titlePadding: EdgeInsets.all(15),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              new Text("Departamento",
+                  style: TextStyle(
+                      fontSize: 16, color: Theme.of(context).primaryColor)),
+              IconButton(
+                iconSize: 32,
+                icon: Icon(
+                  Icons.close,
+                  size: 32,
+                  color: Colors.grey[600],
+                ),
+                onPressed: _closeDialog,
+              )
+            ],
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text("Pedido #23153",
+                  style: TextStyle(
+                      fontSize: 26,
+                      color: Theme.of(context).primaryColor,
+                      fontWeight: FontWeight.w600)),
+              SizedBox(
+                height: 25,
+              ),
+              Text("Departamento", style: TextStyle(color: Colors.grey[400])),
+              SizedBox(
+                height: 5,
+              ),
+              Text("Hoje às 15h",
+                  style: TextStyle(color: Theme.of(context).primaryColor)),
+              SizedBox(
+                height: 15,
+              ),
+              Text(
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin congue iaculis felis a viverra. Fusce metus tellus, sagittis sit amet condimentum ac, fringilla ut magna. Quisque urna dui, auctor at augue sit amet, vehicula ullamcorper metus. Vestibulum finibus quis risus sed pharetra. In viverra, felis vestibulum faucibus auctor, ex diam aliquet massa, quis venenatis dui mauris id justo. Nullam interdum sed eros nec mattis.",
+                style: TextStyle(fontSize: 14, color: Colors.grey[500]),
+              ),
+              SizedBox(
+                height: 25,
+              ),
+              Container(
+                width: double.infinity,
+                child: PrimaryButton(_closeDialog, 'Alterar Pedido'),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  void _closeDialog() {
+    Navigator.pop(context);
+  }
 
   Widget _getDropDownListOrder() {
     return Container(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'package:projeto_swellit/screens/order_solicitation.dart';
+import 'package:projeto_swellit/screens/orders_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
           backgroundColor: Colors.grey[300]),
       supportedLocales: [const Locale('pt', 'BR')],
       debugShowCheckedModeBanner: false,
-      home: OrderSolicitation(),
+      home: OrdersScreen(),
     );
   }
 }

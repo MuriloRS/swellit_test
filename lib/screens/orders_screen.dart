@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_swellit/screens/new_order_screen.dart';
+import 'package:projeto_swellit/screens/order_solicitation.dart';
 
 class OrdersScreen extends StatelessWidget {
   final List<ListTile> list = List();
@@ -85,6 +87,11 @@ class OrdersScreen extends StatelessWidget {
                       itemCount: 30,
                       itemBuilder: (context, i) {
                         return ListTile(
+                          onTap: (){
+                            Navigator.push(context, MaterialPageRoute(
+                              builder: (context)=>NewOrderScreen()
+                            ));
+                          },
                           title: Text(
                             "Item list",
                             style: TextStyle(color: Colors.grey[500]),
@@ -96,8 +103,31 @@ class OrdersScreen extends StatelessWidget {
                         );
                       },
                     ),
-                    Column(
-                      children: <Widget>[],
+                    ListView.separated(
+                      separatorBuilder: (context, i) {
+                        return Divider(
+                          height: 1,
+                          color: Colors.grey[300],
+                        );
+                      },
+                      itemCount: 30,
+                      itemBuilder: (context, i) {
+                        return ListTile(
+                          onTap: (){
+                            Navigator.push(context, MaterialPageRoute(
+                              builder: (context)=>OrderSolicitation()
+                            ));
+                          },
+                          title: Text(
+                            "Item list",
+                            style: TextStyle(color: Colors.grey[500]),
+                          ),
+                          trailing: Icon(
+                            Icons.chevron_right,
+                            color: Colors.grey[500],
+                          ),
+                        );
+                      },
                     ),
                   ],
                 )),

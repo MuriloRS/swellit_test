@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:projeto_swellit/screens/success_order_screen.dart';
 import 'package:projeto_swellit/widgets/order_card.dart';
 import 'package:projeto_swellit/widgets/primary_button.dart';
 import 'package:projeto_swellit/widgets/type_order.dart';
@@ -176,21 +177,24 @@ class _OrderScreenState extends State<NewOrderScreen> {
                           height: 5,
                         ),
                         OrderCard(false),
-                        PrimaryButton(_selectDate, 'Adicionar Pedido')
+                        Container(
+                          padding: EdgeInsets.all(15),
+                          child: PrimaryButton(_selectDate, 'Adicionar Pedido'),
+                        )
                       ],
                     )))));
   }
 
-  
-
   void _selectDate() async {
-   
     DateTime picked = await showDatePicker(
         context: context,
         initialDate: DateTime.now(),
         firstDate: DateTime(2019),
         lastDate: DateTime(2020));
 
-    if (picked != null) setState(() => _value = picked.toString());
+    if (picked != null) {
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => SuccessOrderScreen()));
+    }
   }
 }
